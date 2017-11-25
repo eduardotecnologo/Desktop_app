@@ -1,7 +1,8 @@
 const electron = require('electron');
 const url      = require('url');
 const path     = require('path');
-const app      = electron.app
+const app      = electron.app;
+const dialog   = electron.dialog;
 
 let win
 app.on('ready', function(){
@@ -15,10 +16,21 @@ app.on('ready', function(){
     protocol: 'file:'
   }));
   //Janela de informação
-  
+
   win.webContents.openDevTools();
   win.on('closed', function(){
     console.log('Té mais manolo!!')//Evento com saída no console 
+  });
+  //Caixa de Dialogos
+  // dialog.showMessageBox(win, {
+  //   type: 'none',
+  //   message: 'Opaaa!!!',
+  //   title: 'AVISO!',
+  //   buttons: []
+  // });
+  dialog.showOpenDialog(win, {
+    title: 'Selecione um arquivo!',
+    buttonLabel: 'Selecionar!'
   });
 });
 app.on('before-quit', function(){
