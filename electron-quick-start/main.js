@@ -3,6 +3,7 @@ const url      = require('url');
 const path     = require('path');
 const app      = electron.app;
 const dialog   = electron.dialog;
+const Menu     = electron.Menu; 
 
 let win
 app.on('ready', function(){
@@ -34,10 +35,34 @@ app.on('ready', function(){
   // });
   //Error Box
   // dialog.showErrorBox('Title Error', 'Contet')
-  dialog.showOpenDialog(win, {
-    title: 'Salvar Arquivo',
-    buttonLabel: 'Salvar'
-  })
+  // Salvar arquivo
+  // dialog.showOpenDialog(win, {
+  //   title: 'Salvar Arquivo',
+  //   buttonLabel: 'Salvar'
+  // })
+  let menuTemplate = [
+    {
+      label: 'Menu 1'
+    },
+    {
+      label: 'Menu 2',
+      submenu: [
+        {
+          label: 'Hello',
+          // role: 'Sub' //Role ignora a propriedade de Click
+          click: function(item, win, event){
+            dialog.showMessageBox(win, {
+              title: 'Opaaaa!!',
+              message: 'Opaaa SubMenu'
+            })
+          }
+        }
+      ]
+    }
+  ];
+  const menu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(menu);
+
 });
 app.on('before-quit', function(){
   console.log('Fui manééé!!!')
