@@ -32,7 +32,12 @@ app.on('ready', function(){
   //   title: 'Selecione um arquivo!',
   //   buttonLabel: 'Selecionar!'
   // });
-  dialog.showErrorBox('Title Error', 'Contet')
+  //Error Box
+  // dialog.showErrorBox('Title Error', 'Contet')
+  dialog.showOpenDialog(win, {
+    title: 'Salvar Arquivo',
+    buttonLabel: 'Salvar'
+  })
 });
 app.on('before-quit', function(){
   console.log('Fui manééé!!!')
