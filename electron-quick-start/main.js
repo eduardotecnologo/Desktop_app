@@ -28,10 +28,11 @@ app.on('ready', function(){
   //   title: 'AVISO!',
   //   buttons: []
   // });
-  dialog.showOpenDialog(win, {
-    title: 'Selecione um arquivo!',
-    buttonLabel: 'Selecionar!'
-  });
+  // dialog.showOpenDialog(win, {
+  //   title: 'Selecione um arquivo!',
+  //   buttonLabel: 'Selecionar!'
+  // });
+  dialog.showErrorBox('Title Error', 'Contet')
 });
 app.on('before-quit', function(){
   console.log('Fui manééé!!!')
