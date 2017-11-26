@@ -4,6 +4,7 @@ const path     = require('path');
 const app      = electron.app;
 const dialog   = electron.dialog;
 const Menu     = electron.Menu; 
+const MenuItem = electron.MenuItem;
 
 let win
 app.on('ready', function(){
@@ -18,11 +19,11 @@ app.on('ready', function(){
   }));
   //Janela de informação
 
-  win.webContents.openDevTools();
-  win.on('closed', function(){
-    console.log('Té mais manolo!!')//Evento com saída no console 
-  });
-  //Caixa de Dialogos
+  // win.webContents.openDevTools();
+  // win.on('closed', function(){
+  //   console.log('Té mais manolo!!')//Evento com saída no console 
+  // });
+  // //Caixa de Dialogos
   // dialog.showMessageBox(win, {
   //   type: 'none',
   //   message: 'Opaaa!!!',
@@ -40,30 +41,48 @@ app.on('ready', function(){
   //   title: 'Salvar Arquivo',
   //   buttonLabel: 'Salvar'
   // })
-  let menuTemplate = [
-    {
-      label: 'Menu 1'
-    },
-    {
-      label: 'Menu 2',
-      submenu: [
-        {
-          label: 'Hello',
-          // role: 'Sub' //Role ignora a propriedade de Click
-          click: function(item, win, event){
-            dialog.showMessageBox(win, {
-              title: 'Opaaaa!!',
-              message: 'Opaaa SubMenu'
-            })
-          }
-        }
-      ]
-    }
-  ];
-  const menu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(menu);
 
-});
-app.on('before-quit', function(){
-  console.log('Fui manééé!!!')
-});
+  // Template Menu
+  // let menuTemplate = [
+  //   {
+  //     label: 'Menu 1'
+  //   },
+  //   {
+  //     label: 'Menu 2',
+  //     submenu: [
+  //       {
+  //         label: 'Hello',
+  //         // role: 'Sub' //Role ignora a propriedade de Click
+  //         click: function(item, win, event){
+  //           dialog.showMessageBox(win, {
+  //             title: 'Opaaaa!!',
+  //             message: 'Opaaa SubMenu'
+  //           })
+  //         }
+  //       }
+  //     ]
+  //   }
+  // ];
+ 
+
+//   const menu = new Menu();
+//   menu.append(new MenuItem({
+//     label: 'Menu 1'
+//   }));
+//   menu.append(new MenuItem({
+//     label: 'Menu 2',
+//     click: function(){
+//       dialog.showMessageBox(win, {
+//         type: 'none',
+//         message: 'Koé manolo!!!',
+//         title: 'Avisos'
+//       })
+//     }
+//   }));
+//    // // const menu = Menu.buildFromTemplate(menuTemplate);
+//   Menu.setApplicationMenu(menu);
+
+ });
+// app.on('before-quit', function(){
+//   console.log('Fui manééé!!!')
+// });
