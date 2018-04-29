@@ -1,88 +1,60 @@
-const electron = require('electron');
-const url      = require('url');
-const path     = require('path');
-const app      = electron.app;
-const dialog   = electron.dialog;
-const Menu     = electron.Menu; 
-const MenuItem = electron.MenuItem;
+const electron = require('electron')
+// Module to control application life.
+const app = electron.app
+// Module to create native browser window.
+const BrowserWindow = electron.BrowserWindow
 
-let win
-app.on('ready', function(){
-  win = new electron.BrowserWindow({
-    width: 1300,
-    height: 1000
-  });
-  // win.loadURL("http://ctksolucoes.com.br/")Render app web
-  win.loadURL(url.format({
+const path = require('path')
+const url = require('url')
+
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+let mainWindow
+
+function createWindow () {
+  // Create the browser window.
+  mainWindow = new BrowserWindow({width: 1300, height: 700, frame: false})
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:'
-  }));
-  //Janela de informação
+    protocol: 'file:',
+    slashes: true
+  }))
 
-  // win.webContents.openDevTools();
-  // win.on('closed', function(){
-  //   console.log('Té mais manolo!!')//Evento com saída no console 
-  // });
-  // //Caixa de Dialogos
-  // dialog.showMessageBox(win, {
-  //   type: 'none',
-  //   message: 'Opaaa!!!',
-  //   title: 'AVISO!',
-  //   buttons: []
-  // });
-  // dialog.showOpenDialog(win, {
-  //   title: 'Selecione um arquivo!',
-  //   buttonLabel: 'Selecionar!'
-  // });
-  //Error Box
-  // dialog.showErrorBox('Title Error', 'Contet')
-  // Salvar arquivo
-  // dialog.showOpenDialog(win, {
-  //   title: 'Salvar Arquivo',
-  //   buttonLabel: 'Salvar'
-  // })
+  // Open the DevTools.
+  // mainWindow.webContents.openDevTools()
 
-  // Template Menu
-  // let menuTemplate = [
-  //   {
-  //     label: 'Menu 1'
-  //   },
-  //   {
-  //     label: 'Menu 2',
-  //     submenu: [
-  //       {
-  //         label: 'Hello',
-  //         // role: 'Sub' //Role ignora a propriedade de Click
-  //         click: function(item, win, event){
-  //           dialog.showMessageBox(win, {
-  //             title: 'Opaaaa!!',
-  //             message: 'Opaaa SubMenu'
-  //           })
-  //         }
-  //       }
-  //     ]
-  //   }
-  // ];
- 
+  // Emitted when the window is closed.
+  mainWindow.on('closed', function () {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    mainWindow = null
+  })
+}
 
-//   const menu = new Menu();
-//   menu.append(new MenuItem({
-//     label: 'Menu 1'
-//   }));
-//   menu.append(new MenuItem({
-//     label: 'Menu 2',
-//     click: function(){
-//       dialog.showMessageBox(win, {
-//         type: 'none',
-//         message: 'Koé manolo!!!',
-//         title: 'Avisos'
-//       })
-//     }
-//   }));
-//    // // const menu = Menu.buildFromTemplate(menuTemplate);
-//   Menu.setApplicationMenu(menu);
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on('ready', createWindow)
 
- });
-// app.on('before-quit', function(){
-//   console.log('Fui manééé!!!')
-// });
+// Quit when all windows are closed.
+app.on('window-all-closed', function () {
+  // On OS X it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', function () {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.
