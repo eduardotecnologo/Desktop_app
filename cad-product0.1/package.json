@@ -1,12 +1,11 @@
 {
-  "name": "electron-quick-start",
+  "name": "cad-product0.1",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "Cadastro de Produtos com Electron",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
   "keywords": [
     "Electron",
     "quick",
@@ -20,6 +19,6 @@
     "electron": "^1.8.4"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "lokijs": "^1.5.3"
   }
 }
