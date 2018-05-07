@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Produtos</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="photon/css/photon.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+        <div class="window">
+                <header class="toolbar toolbar-header">
+                    <h1 class="title">Sistema de Cadastro de Clientes</h1>
+                    <div class="toolbar-actions">
+                        <div class="btn-group">
+                          <button class="btn btn-default">
+                            <span class="icon icon-home"></span>
+                          </button>
+                          <button class="btn btn-default">
+                            <span class="icon icon-folder"></span>
+                          </button>
+                          <button class="btn btn-default active">
+                            <span class="icon icon-cloud"></span>
+                          </button>
+                          <button class="btn btn-default">
+                            <span class="icon icon-popup"></span>
+                          </button>
+                          <button class="btn btn-default">
+                            <span class="icon icon-shuffle"></span>
+                          </button>
+                        </div>
+                </header>
+              <div class="window-content">
+                <div class="pane-group">
+                  <div class="pane-sm sidebar">
+                      <nav class="nav-group">
+                          <h5 class="nav-group-title">Eduardo Alexandre</h5>
+                          <a class="nav-group-item active">
+                            <span class="icon icon-home"></span>
+                            Cadastrar
+                          </a>
+                          <span class="nav-group-item">
+                            <span class="icon icon-download"></span>
+                            Consultar
+                          </span>
+                          <span class="nav-group-item">
+                            <span class="icon icon-folder"></span>
+                            Documentos
+                          </span>
+                          <span class="nav-group-item">
+                            <span class="icon icon-signal"></span>
+                            AirPlay
+                          </span>
+                          <span class="nav-group-item">
+                            <span class="icon icon-print"></span>
+                            Applications
+                          </span>
+                          <span class="nav-group-item">
+                            <span class="icon icon-cloud"></span>
+                            Desktop
+                          </span>
+                        </nav>
+                  </div>
+                  <div class="pane">
+                    <!--FORMULÁRIO DE CADASTRO-->
+                    <button type="button" @click="createProduct()" class="btn btn-large btn-primary">Novo Produto</button>
+                    <a href="index.html" class="btn btn-large btn-default">Clientes</a>
+                    <a href="produtos.html" class="btn btn-large btn-default">Produtos</a>
+                      <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Nome</th>
+                              <th>Preço</th>
+                              <th>Quantidade</th>
+                              <th>Tipo</th>
+                              <th>Descrição</th>
+                              <th>Ações</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="produto in produtos">
+                              <td>{{produto.nome}}</td>
+                              <td>{{produto.preco}}</td>
+                              <td>{{produto.qtd}}</td>
+                              <td>{{produto.tipo}}</td>
+                              <td>{{produto.desc}}</td>
+                              <td><button class="btn btn-warning" @click="editProduct(produto)">Editar</button></td>
+                            </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                </div>
+              </div>
+              <footer class="toolbar toolbar-footer">
+                  <h1 class="title">Desenvolvido por CTk Soluções em TI</h1>
+                </footer>
+            </div>
+    <!-- //Modal de Cadastrar -->
+    <div id="modal" v-if="openModal">
+            <div class="wrap">
+                <form id="cad-cliente" action="" class="pane-body">
+                    <h2 v-if="mode=='cadastro'">Cadastrar Novo Produto</h2>
+                    <h2 v-if="mode=='edicao'">Editar Produto</h2>
+                    <div class="form-group">
+                      <input type="text" class="form-control" v-model="product.nome" placeholder="Nome" />
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" v-model="product.preco" placeholder="Preço R$" />
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" v-model="product.qtd" placeholder="Quantidade" />
+                    </div>
+                    <div class="form-group">
+                            <input type="text" class="form-control" v-model="product.tipo" placeholder="Tipo" />
+                    </div>
+                    <div>
+                    <label>Descrição</label>
+                            <textarea class="form-control" v-model="product.desc" rows="3"></textarea>
+                    </div>
+                    <button type="button" @click="productStoreOrUpdate" class="btn btn-large btn-positive">SALVAR</button>
+                    <button type="button" id="cancelar" class="btn btn-large btn-negative" @click="openModal=false">FECHAR</button>
+                </form>
+            </div>
+          </div>
+</body>
+<script>
+     let read = require('read-file-utf8') 
+     let loki = require('lokijs')
+     let db = new loki('db.json')
+     let data = read(__dirname+'/db.json') 
+     db.loadJSON(data) 
+     window.Vue = require('vue') 
+    // let produtos = db.addCollection('produtos')
+     let produtos = db.getCollection('produtos') 
+     db.save();
+     console.log(db) 
+     new Vue({ 
+        el: 'body', 
+        data:{
+            mode:'',
+            openModal:false,
+            produtos:[],
+        product:{
+            nome:'',
+            preco:'',
+            qtd:'0',
+            tipo:'',
+            desc:''
+        }
+    },
+        ready: function(){
+            this.produtos = produtos.data
+        },
+        methods:{
+            editProduct:function(product){
+                this.mode='edicao',
+                this.openModal=true,
+                this.product=product
+            },
+            createProduct:function(){
+                this.mode='cadastro',
+                this.openModal=true,
+                this.product={
+                    nome:'',
+                    preco:'',
+                    qtd:'0',
+                    tipo:'',
+                    desc:''
+                }
+            },
+            productStoreOrUpdate: function(){
+                if(typeof this.product.$loki != 'undefined'){
+                    produtos.update(this.product)
+                }else{
+                    produtos.insert(this.product)
+                }
+                db.save()
+                this.openModal=false
+            }
+        }
+    })
+</script>
+</html>

@@ -19,6 +19,8 @@
     "electron": "^1.8.4"
   },
   "dependencies": {
-    "lokijs": "^1.5.3"
+    "lokijs": "^1.5.3",
+    "read-file-utf8": "^1.1.2",
+    "vue": "^1.0.28"
   }
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cadastro de Clientes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="photon/css/photon.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Electron Javascript -->
+<!--    <script src="app.js" charset="utf-8"></script>-->
+  </head>
+  <body>
+    <div class="window">
+        <header class="toolbar toolbar-header">
+            <h1 class="title">Sistema de Cadastro de Clientes</h1>
+            <div class="toolbar-actions">
+                <div class="btn-group">
+                  <button class="btn btn-default">
+                    <span class="icon icon-home"></span>
+                  </button>
+                  <button class="btn btn-default">
+                    <span class="icon icon-folder"></span>
+                  </button>
+                  <button class="btn btn-default active">
+                    <span class="icon icon-cloud"></span>
+                  </button>
+                  <button class="btn btn-default">
+                    <span class="icon icon-popup"></span>
+                  </button>
+                  <button class="btn btn-default">
+                    <span class="icon icon-shuffle"></span>
+                  </button>
+                </div>
+        </header>
+      <div class="window-content">
+        <div class="pane-group">
+          <div class="pane-sm sidebar">
+              <nav class="nav-group">
+                  <h5 class="nav-group-title">Eduardo Alexandre</h5>
+                  <a class="nav-group-item active">
+                    <span class="icon icon-home"></span>
+                    Cadastrar
+                  </a>
+                  <span class="nav-group-item">
+                    <span class="icon icon-download"></span>
+                    Consultar
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-folder"></span>
+                    Documentos
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-signal"></span>
+                    AirPlay
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-print"></span>
+                    Applications
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-cloud"></span>
+                    Desktop
+                  </span>
+                </nav>
+          </div>
+          <div class="pane">
+            <!--FORMULÁRIO DE CADASTRO-->
+            <form id="cad-cliente" action="" class="pane-body">
+                <h2 class="title">Clientes Cadastrados</h2>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="nome" placeholder="Nome">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="tel" placeholder="Telefone">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="servico" placeholder="Serviço">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="produto" placeholder="Produto">
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" id="obs" placeholder="Observações:" rows="5"></textarea>
+                </div>
+                <button type="button" id="salvar" class="btn btn-large btn-positive">SALVAR</button>
+                <button type="button" id="cancelar" class="btn btn-large btn-negative">CANCELAR</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <footer class="toolbar toolbar-footer">
+          <h1 class="title">Desenvolvido por CTk Soluções em TI</h1>
+        </footer>
+    </div>
+  </body>
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>
